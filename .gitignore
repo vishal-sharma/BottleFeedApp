@@ -1,0 +1,4 @@
+# exclude directories bin and obj
+bin/
+obj/
+.vs/

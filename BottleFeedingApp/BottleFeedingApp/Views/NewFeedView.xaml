@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BottleFeedingApp.Views.NewFeedView"
+             Padding="0,20"
+             Style="{StaticResource PageStyle}"
+             Title="Record Feed/Nappy">
+  <StackLayout>
+    <Label Text="Start Quantity"  />
+    <Entry Text="{Binding StartQuantity}"  Keyboard="Numeric"/>
+
+    <Label Text="Finish Quantity"  />
+    <Entry Text="{Binding FinishQuantity}"  Keyboard="Numeric"/>
+
+    <Label Text="Nappy Changed"  />
+    <Switch IsToggled="{Binding WasNappyChanged}"  />
+
+    <StackLayout IsVisible ="{Binding WasNappyChanged}"
+                 Padding="20,0,0,0">
+      <Label Text="Had Poo"  />
+      <Switch IsToggled="{Binding HadPoo}"   />
+
+      <Label Text="Had Wee"  />
+      <Switch IsToggled="{Binding HadWee}"   />
+    </StackLayout>
+    
+
+    <Button Text="Save" Command="{Binding SaveNewFeed}"/>
+  </StackLayout>
+</ContentPage>
