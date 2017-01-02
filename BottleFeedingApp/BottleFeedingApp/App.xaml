@@ -4,19 +4,38 @@
             x:Class="BottleFeedingApp.App">
   <Application.Resources>
     <ResourceDictionary>
+      <Color x:Key="BaseTextColor">#8F2C01</Color>
+      <Color x:Key="BasePageBackgroundColor">#9999FF</Color>
+      <Color x:Key="BaseBackgroundColor">#F16D36</Color>
+      
       <Style TargetType="Label">
-        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="TextColor" Value="{StaticResource BaseTextColor}" />
       </Style>
-      <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="Black" />
+      <Style TargetType="Entry" >
+        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="TextColor" Value="{StaticResource BaseTextColor}" />
       </Style>
-      <Style x:Key="LabelPageHeadingStyle" TargetType="Label">
+      <Style TargetType="Button" >
+        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource BaseTextColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource BaseBackgroundColor}" />
+      </Style>    
+      <Style x:Key="PageStyle" TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{StaticResource BasePageBackgroundColor}" />
+        <Setter Property="Padding" Value="10, 20" />
+      </Style>
+      <Style x:Key="LabelPrimary" TargetType="Label">
+        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="TextColor" Value="{StaticResource BaseTextColor}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+      </Style>
+      <Style x:Key="LabelSecondary" TargetType="Label" >
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="TextColor" Value="{StaticResource BaseTextColor}" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="HorizontalOptions" Value="Center" />
-      </Style>      
-      <Style x:Key="PageStyle" TargetType="ContentPage">
-        <Setter Property="BackgroundColor" Value="White" />
-        <Setter Property="Padding" Value="0, 20" />
       </Style>
     </ResourceDictionary>
   </Application.Resources>

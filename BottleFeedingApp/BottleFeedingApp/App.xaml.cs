@@ -8,11 +8,15 @@ namespace BottleFeedingApp
         public App()
         {
             InitializeComponent();
+
+            // For UWP the main page has to be set in App constructor
+            // otherwise it will throw Argument Null Exception
+            SetMainPage();
         }
 
         protected override void OnStart()
         {
-            SetMainPage();            
+                      
         }
 
         protected override void OnSleep()
@@ -34,8 +38,7 @@ namespace BottleFeedingApp
 
             MainPage = new NavigationPage(nextPage)
             {
-                BarBackgroundColor = Color.FromHex("#77D065"),
-                BarTextColor = Color.Red,
+                BarBackgroundColor = Color.FromHex("#F16D36")
             };
         }
     }

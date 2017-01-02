@@ -2,6 +2,8 @@
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Splat": "2.0.0",
+    "SQLitePCLRaw.bundle_green": "1.1.1",
+    "SQLitePCLRaw.core": "1.1.1",
     "Xamarin.Forms": "2.3.3.175"
   },
   "frameworks": {

@@ -20,8 +20,8 @@ namespace BottleFeedingApp.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
-            LoadApplication(new BottleFeedingApp.App());
+            var application = new BottleFeedingApp.App();
+            LoadApplication(application);
         }
     }
 }
