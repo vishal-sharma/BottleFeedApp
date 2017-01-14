@@ -1,5 +1,6 @@
 ﻿using BottleFeedingApp.DataLayer.BusinessDataServices;
 using BottleFeedingApp.DataLayer.Models;
+using MvvmHelpers;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -42,7 +43,7 @@ namespace BottleFeedingApp.ViewModel
             set
             {
                 feed.WasNappyChanged = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
         public bool HadPooh
@@ -58,9 +59,11 @@ namespace BottleFeedingApp.ViewModel
         private async Task OnSaveNewFeed()
         {
             feed.FinishTime = DateTime.Now;
+
+            //await FeedDataService.SaveNewFeed(feed);
             await FeedDataService.SaveNewFeed(feed).ConfigureAwait(false);
-            var vm = navigation.NavigationStack[0].BindingContext as CurrentFeedViewModel;
-            vm.LastFeed = feed;
+
+            //await navigation.PopAsync();
             Device.BeginInvokeOnMainThread(async () => await navigation.PopAsync());
         }        
     }

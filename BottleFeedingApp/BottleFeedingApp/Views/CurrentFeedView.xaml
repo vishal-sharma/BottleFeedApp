@@ -65,6 +65,7 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
@@ -108,6 +109,9 @@
     <ListView Grid.Row="4"
               Grid.ColumnSpan="2"
               ItemsSource="{Binding FeedsForToday}"
+              IsPullToRefreshEnabled="true"
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+              RefreshCommand="{Binding LoadFeedsCommand}"
               SeparatorColor="Red">
       <ListView.RowHeight>
         <OnPlatform x:TypeArguments="x:Int32"
@@ -131,6 +135,8 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
-
+    <StackLayout Grid.Row="5" x:Name="OfflineStack" Padding="8, 0" IsVisible="false" BackgroundColor="#F2C500" Grid.ColumnSpan="2">
+      <Label TextColor="White" Text="No Connection - Offline Mode" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </StackLayout>
   </Grid>
 </ContentPage>

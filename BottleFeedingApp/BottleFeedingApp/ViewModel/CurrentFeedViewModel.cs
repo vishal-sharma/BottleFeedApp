@@ -2,7 +2,7 @@
 using BottleFeedingApp.DataLayer.Models;
 using BottleFeedingApp.Utils;
 using BottleFeedingApp.Views;
-using System.Collections.ObjectModel;
+using MvvmHelpers;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,6 +17,8 @@ namespace BottleFeedingApp.ViewModel
         private INavigation navigation;
 
         public ICommand AddNewFeed { get; private set; }
+
+        public ObservableRangeCollection<BabyFeed> FeedsForToday { get; } = new ObservableRangeCollection<BabyFeed>();
 
         public CurrentFeedViewModel(INavigation navigation)
         {
@@ -33,91 +35,36 @@ namespace BottleFeedingApp.ViewModel
             await navigation.PushAsync(nextPage);
         }
 
-        public ObservableCollection<BabyFeed> FeedsForToday { get; set; }
 
-        public BabyFeed LastFeedWithMilk { get; set; }
-        public BabyFeed LastNappyChange { get; set; }
-        public BabyFeed LastPooh { get; set; }
-        public BabyFeed LastWee { get; set; }
 
-        public string LastFeedWithMilkText
-        {
-            get
-            {
-                return LastFeedWithMilk != null
+        public string LastFeedWithMilkText => LastFeedWithMilk != null
                         ? $"{LastFeedWithMilk.StartQuantity - LastFeedWithMilk.FinishQuantity} ml @{LastFeedWithMilk.FinishTime.ToTime()}"
                         : notAvailable;
-            }
-        }
-        public string LastNappyChangeText
-        {
-            get
-            {
-                return LastNappyChange != null ? $"@{LastNappyChange.FinishTime.ToTime()}" : notAvailable;
-            }
-        }
-        public string LastPoohText
-        {
-            get
-            {
-                return LastPooh != null ? $"@{LastPooh.FinishTime.ToTime()}" : notAvailable;
-            }
-        }
-        public string LastWeeText
-        {
-            get
-            {
-                return LastWee != null ? $"@{LastWee.FinishTime.ToTime()}" : notAvailable;
-            }
-        }
-        public string TotalMilkForTodayText
-        {
-            get
-            {
-                return FeedsForToday != null
-                        ? $"{FeedsForToday.Sum(f => f.StartQuantity - f.FinishQuantity)} ml"
-                        : notAvailable;
-            }
-        }
-        public string TotalNappyChangeForTodayText
-        {
-            get
-            {
-                return FeedsForToday != null
-                        ? $"{FeedsForToday.Count(f => f.WasNappyChanged)}"
-                        : notAvailable;
-            }
-        }
-        public string TotalPoohForTodayText
-        {
-            get
-            {
-                return FeedsForToday != null
-                        ? $"{FeedsForToday.Count(f => f.HadPooh)}"
-                        : notAvailable;
-            }
-        }
-        public string TotalWeeForTodayText
-        {
-            get
-            {
-                return FeedsForToday != null
-                        ? $"{FeedsForToday.Count(f => f.HadWee)}"
-                        : notAvailable;
-            }
-        }
+        public string LastNappyChangeText => $"@{LastNappyChange?.FinishTime.ToTime() ?? notAvailable}";
+        public string LastPoohText => $"@{LastPooh?.FinishTime.ToTime() ?? notAvailable}";
 
-        public BabyFeed LastFeed { get; set; }
+        public string LastWeeText => $"@{LastWee?.FinishTime.ToTime() ?? notAvailable}";
 
-        public async Task LoadData()
+        public string TotalMilkForTodayText => $"{FeedsForToday.Sum(f => f.StartQuantity - f.FinishQuantity)} ml";
+        public string TotalNappyChangeForTodayText => $"{FeedsForToday.Count(f => f.WasNappyChanged)}";
+        public string TotalPoohForTodayText => $"{FeedsForToday.Count(f => f.HadPooh)}";
+        public string TotalWeeForTodayText => $"{FeedsForToday.Count(f => f.HadWee)}";
+
+        ICommand loadFeedsCommand;
+        public ICommand LoadFeedsCommand =>
+            loadFeedsCommand ?? (loadFeedsCommand = new Command(async () => await ExecuteLoadFeedsCommandAsync()));
+
+        async Task ExecuteLoadFeedsCommandAsync()
         {
-            if (FeedsForToday == null)
-                FeedsForToday = new ObservableCollection<BabyFeed>(
-                    await FeedDataService.GetAllFeedToday());
-            else if (HasANewFeed)
-                FeedsForToday.Insert(0, LastFeed);
+            if (IsBusy)
+                return;
+
+            //LoadingMessage = "Loading Feeds...";
+            IsBusy = true;
+            FeedsForToday.ReplaceRange(await FeedDataService.GetAllFeedToday());
 
             SetCurrentFeedData();
+            IsBusy = false;
         }
 
         private void SetCurrentFeedData()
@@ -127,10 +74,14 @@ namespace BottleFeedingApp.ViewModel
             LastPooh = FeedsForToday.FirstOrDefault(f => f.HadPooh);
             LastWee = FeedsForToday.FirstOrDefault(f => f.HadWee);
 
-            RaiseAllPropertiesChanged();
+            // By convention, an empty string indicates all properties are invalid.
+            OnPropertyChanged(string.Empty);
         }
 
-        private bool HasANewFeed => LastFeed != null;
+        private BabyFeed LastFeedWithMilk { get; set; }
+        private BabyFeed LastNappyChange { get; set; }
+        private BabyFeed LastPooh { get; set; }
+        private BabyFeed LastWee { get; set; }
     }
 
 }

@@ -2,9 +2,11 @@
   "dependencies": {
     "Microsoft.Azure.Mobile.Client.SQLiteStore": "3.0.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Refractored.MvvmHelpers": "1.2.0",
     "Splat": "2.0.0",
     "SQLitePCLRaw.bundle_green": "1.1.1",
     "SQLitePCLRaw.core": "1.1.1",
+    "Xam.Plugin.Connectivity": "2.3.0",
     "Xamarin.Forms": "2.3.3.175"
   },
   "frameworks": {
