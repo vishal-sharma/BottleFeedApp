@@ -6,10 +6,10 @@
              Title="Record Feed/Nappy">
   <StackLayout>
     <Label Text="Start Quantity"  />
-    <Entry Text="{Binding StartQuantity}"  Keyboard="Numeric"/>
+    <Entry Text="{Binding StartQuantity}"  Keyboard="Numeric" Placeholder="0"/>
 
     <Label Text="Finish Quantity"  />
-    <Entry Text="{Binding FinishQuantity}"  Keyboard="Numeric"/>
+    <Entry Text="{Binding FinishQuantity}"  Keyboard="Numeric" Placeholder="0"/>
 
     <Label Text="Nappy Changed"  />
     <Switch IsToggled="{Binding WasNappyChanged}"  />
