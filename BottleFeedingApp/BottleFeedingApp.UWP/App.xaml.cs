@@ -59,8 +59,6 @@ namespace BottleFeedingApp.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
-                //Xamarin.Forms.DependencyService.Register<FileAccessHelper>();
-                var bootstrapper = new AppBootstrapper();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

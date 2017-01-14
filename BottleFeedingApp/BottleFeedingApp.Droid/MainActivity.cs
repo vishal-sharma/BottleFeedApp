@@ -22,8 +22,8 @@ namespace BottleFeedingApp.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            var bootstrapper = new AppBootstrapper();
-            
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+
             LoadApplication(new App());
         }
     }

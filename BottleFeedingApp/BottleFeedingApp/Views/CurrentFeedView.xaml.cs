@@ -15,7 +15,7 @@ namespace BottleFeedingApp.Views
         {
             base.OnAppearing();
             var vm = (CurrentFeedViewModel)BindingContext;
-            await vm.InitializeData();
+            await vm.LoadData();
         }
     }
 }

@@ -33,12 +33,12 @@ namespace BottleFeedingApp.ViewModel
             await navigation.PushAsync(nextPage);
         }
 
-        public ObservableCollection<Feed> FeedsForToday { get; set; }
+        public ObservableCollection<BabyFeed> FeedsForToday { get; set; }
 
-        public Feed LastFeedWithMilk { get; set; }
-        public Feed LastNappyChange { get; set; }
-        public Feed LastPooh { get; set; }
-        public Feed LastWee { get; set; }
+        public BabyFeed LastFeedWithMilk { get; set; }
+        public BabyFeed LastNappyChange { get; set; }
+        public BabyFeed LastPooh { get; set; }
+        public BabyFeed LastWee { get; set; }
 
         public string LastFeedWithMilkText
         {
@@ -107,12 +107,12 @@ namespace BottleFeedingApp.ViewModel
             }
         }
 
-        public Feed LastFeed { get; set; }
+        public BabyFeed LastFeed { get; set; }
 
-        public async Task InitializeData()
+        public async Task LoadData()
         {
             if (FeedsForToday == null)
-                FeedsForToday = new ObservableCollection<Feed>(
+                FeedsForToday = new ObservableCollection<BabyFeed>(
                     await FeedDataService.GetAllFeedToday());
             else if (HasANewFeed)
                 FeedsForToday.Insert(0, LastFeed);

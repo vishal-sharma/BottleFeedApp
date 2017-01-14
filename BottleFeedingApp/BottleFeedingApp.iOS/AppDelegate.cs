@@ -24,8 +24,8 @@ namespace BottleFeedingApp.iOS
         {      
             global::Xamarin.Forms.Forms.Init();
 
-            var bootstrapper = new AppBootstrapper();
-                                   
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

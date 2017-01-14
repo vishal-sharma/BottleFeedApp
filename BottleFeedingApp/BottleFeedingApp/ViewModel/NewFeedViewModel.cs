@@ -12,17 +12,17 @@ namespace BottleFeedingApp.ViewModel
 
         private INavigation navigation;
 
-        private Feed feed;
+        private BabyFeed feed;
         public ICommand SaveNewFeed { get; private set; }
 
         public NewFeedViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            feed = new Feed();
+            feed = new BabyFeed();
             SaveNewFeed = new Command(async () => await OnSaveNewFeed());
         }
         
-        public decimal StartQuantity
+        public int StartQuantity
         {
             get { return feed.StartQuantity;  }
             set
@@ -31,7 +31,7 @@ namespace BottleFeedingApp.ViewModel
                 feed.StartTime = DateTime.Now;
             }
         }
-        public decimal FinishQuantity
+        public int FinishQuantity
         {
             get { return feed.FinishQuantity; }
             set { feed.FinishQuantity = value; }

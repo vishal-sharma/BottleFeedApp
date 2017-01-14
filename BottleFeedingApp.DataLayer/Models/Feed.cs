@@ -1,25 +1,27 @@
-﻿using SQLite;
-using System;
+﻿using System;
 
 namespace BottleFeedingApp.DataLayer.Models
 {
-    [Table("feed")]
-    public class Feed
+    public class BabyFeed
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("Id")]
+        public string Id { get; set; }
+
+        [Microsoft.WindowsAzure.MobileServices.Version]
+        public string AzureVersion { get; set; }
+
         public DateTime StartTime { get; set; }
         public DateTime FinishTime { get; set; }
-        public decimal StartQuantity { get; set; }
-        public decimal FinishQuantity { get; set; }
+        public int StartQuantity { get; set; }
+        public int FinishQuantity { get; set; }
         public bool WasNappyChanged { get; set; }
         public bool HadPooh { get; set; }
         public bool HadWee { get; set; }
-        [Ignore]
+        [Newtonsoft.Json.JsonIgnore]
         public decimal ConsumedQuantity => StartQuantity - FinishQuantity;
-        [Ignore]
+        [Newtonsoft.Json.JsonIgnore]
         public string ConsumedQuantityMessage => $"{ConsumedQuantity} ml of milk,";
-        [Ignore]
+        [Newtonsoft.Json.JsonIgnore]
         public string NappyChangeMessage {
            get
             {
