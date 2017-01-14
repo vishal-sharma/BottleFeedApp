@@ -1,4 +1,6 @@
 # exclude directories bin and obj
-bin/
-obj/
+**/bin/**
+**/obj/**
 .vs/
+packages/**
+TestResults/**

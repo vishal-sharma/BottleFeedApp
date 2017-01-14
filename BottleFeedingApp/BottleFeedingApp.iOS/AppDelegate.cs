@@ -21,9 +21,11 @@ namespace BottleFeedingApp.iOS
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
-        {
+        {      
             global::Xamarin.Forms.Forms.Init();
+
             var bootstrapper = new AppBootstrapper();
+                                   
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

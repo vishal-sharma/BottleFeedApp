@@ -9,15 +9,21 @@ using Android.OS;
 
 namespace BottleFeedingApp.Droid
 {
-    [Activity(Label = "BottleFeedingApp", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "BottleFeedingApp", Theme = "@style/splashscreen", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
+            // reset theme other than SplashScreen
+            base.Window.RequestFeature(WindowFeatures.ActionBar);
+            base.SetTheme(global::Android.Resource.Style.ThemeHoloLight);
+
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
             var bootstrapper = new AppBootstrapper();
+            
             LoadApplication(new App());
         }
     }

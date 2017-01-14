@@ -114,7 +114,7 @@ namespace BottleFeedingApp.ViewModel
             if (FeedsForToday == null)
                 FeedsForToday = new ObservableCollection<Feed>(
                     await FeedDataService.GetAllFeedToday());
-            else if (LastFeed != null)
+            else if (HasANewFeed)
                 FeedsForToday.Insert(0, LastFeed);
 
             SetCurrentFeedData();
@@ -129,6 +129,8 @@ namespace BottleFeedingApp.ViewModel
 
             RaiseAllPropertiesChanged();
         }
+
+        private bool HasANewFeed => LastFeed != null;
     }
 
 }
